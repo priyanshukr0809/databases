@@ -49,6 +49,6 @@ variable "keyvault_secret_admin_password" {
 }
 
 variable "tags" {
-  type = map(string)
+  type        = map(string)
   description = "tags content"
 }

@@ -1,6 +1,6 @@
 resource "random_password" "sql_admin_password" {
-  length  = 16
-  special = true
+  length           = 16
+  special          = true
   override_special = "!@#$%&*()-_=+"
 }
 
@@ -16,25 +16,25 @@ resource "azurerm_mssql_server" "sql_server" {
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_azure_services" {
-  name                = "allow-azure-services"
-  server_id           = azurerm_mssql_server.sql_server.id
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+  name             = "allow-azure-services"
+  server_id        = azurerm_mssql_server.sql_server.id
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
 
 resource "azurerm_mssql_firewall_rule" "allow_ip" {
-  name                = "allow-verification-ip"
-  server_id           = azurerm_mssql_server.sql_server.id
-  start_ip_address    = var.allowed_ip_address
-  end_ip_address      = var.allowed_ip_address
+  name             = "allow-verification-ip"
+  server_id        = azurerm_mssql_server.sql_server.id
+  start_ip_address = var.allowed_ip_address
+  end_ip_address   = var.allowed_ip_address
 }
 
 resource "azurerm_mssql_database" "sql_database" {
-  name                = var.sql_db_name
-  server_id           = azurerm_mssql_server.sql_server.id
-  sku_name            = "S2"
-  collation           = "SQL_Latin1_General_CP1_CI_AS"
-  max_size_gb         = 10
+  name        = var.sql_db_name
+  server_id   = azurerm_mssql_server.sql_server.id
+  sku_name    = "S2"
+  collation   = "SQL_Latin1_General_CP1_CI_AS"
+  max_size_gb = 10
 
   tags = var.tags
 }
